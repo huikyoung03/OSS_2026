@@ -1,6 +1,6 @@
 from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 # 1. 데이터셋 로드
@@ -18,14 +18,14 @@ X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
     test_size=0.2,
-    random_state=42,
+    random_state=20,
     stratify=y
 )
 
-# 3. Baseline 모델 생성 및 학습
-model = DecisionTreeClassifier(
-    max_depth=1,
-    random_state=42
+# 3. 개선 모델 생성 및 학습
+model = RandomForestClassifier(
+    n_estimators=10,
+    random_state=20
 )
 
 model.fit(X_train, y_train)
@@ -36,6 +36,6 @@ y_pred = model.predict(X_test)
 # 5. 정확도 출력
 accuracy = accuracy_score(y_test, y_pred)
 
-print("\n모델: Decision Tree Classifier")
-print("설정: max_depth=1")
+print("\n모델: Random Forest Classifier")
+print("설정: n_estimators=10, random_state=20")
 print("정확도:", accuracy)
