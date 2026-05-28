@@ -1,7 +1,7 @@
 from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 # 1. 데이터셋 로드
 wine = load_wine()
@@ -22,7 +22,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-# 3. 파라미터 변경 실험
+# 3. 최종 모델 생성 및 학습
 model = RandomForestClassifier(
     n_estimators=100,
     random_state=42
@@ -39,3 +39,10 @@ accuracy = accuracy_score(y_test, y_pred)
 print("\n모델: Random Forest Classifier")
 print("설정: n_estimators=100")
 print("정확도:", accuracy)
+
+# 6. 세부 평가 지표 출력
+print("\n분류 보고서")
+print(classification_report(y_test, y_pred, target_names=wine.target_names))
+
+print("\n혼동 행렬")
+print(confusion_matrix(y_test, y_pred))
